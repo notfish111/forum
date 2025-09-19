@@ -30,7 +30,7 @@ public class Main {
                     input2 = scanner.nextLine();
                     if (userManager.login(input1,input2)){
                         System.out.println("登录成功！");
-                        lInterface.loginInterface(userManager.getUser(input1), scanner, userChoice, postManager, userManager);
+                        lInterface.loginInterface(userManager.getUser(input1), scanner, userChoice, postManager, userManager, postManager.userPostHashMap);
                         //进入下一个场景
 
 
@@ -42,12 +42,14 @@ public class Main {
                     userManager.createUser(scanner);
                     continue;
                 case "exit":
+                    postManager.saveToFile();
+                    userManager.saveToFile();
                     break;
                 default:
                     System.out.println("无效选择，请重新输入");
 
             }
-
+            
         }
 
     }
