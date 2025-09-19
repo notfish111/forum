@@ -6,7 +6,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         UserManager userManager = new UserManager();
+        PostManager postManager = new PostManager();
+        LInterface lInterface = new LInterface();
         userManager.loadFromFile();
+        postManager.loadFromFile();
 
         String userChoice = "NOIPUT";
 
@@ -14,7 +17,6 @@ public class Main {
             System.out.println("欢迎进入论坛！");
             System.out.println("1:登录");
             System.out.println("2:注册");
-            System.out.println("3:游客模式");
             System.out.println("以下是业务列表，请输入你想选择的业务");
 
             userChoice = scanner.next();
@@ -28,10 +30,9 @@ public class Main {
                     input2 = scanner.nextLine();
                     if (userManager.login(input1,input2)){
                         System.out.println("登录成功！");
+                        lInterface.loginInterface(userManager.getUser(input1), scanner, userChoice, postManager, userManager);
                         //进入下一个场景
 
-                        System.out.print("\033[1A");
-                        clearConsole();
 
                     }else {
                         System.out.println("登录失败！");
@@ -39,8 +40,6 @@ public class Main {
                     continue;
                 case "2":
                     userManager.createUser(scanner);
-                    continue;
-                case "3":
                     continue;
                 case "exit":
                     break;

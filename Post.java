@@ -74,11 +74,11 @@ public class Post {
         this.change_count = change_count;
     }
 
-    public Post(int post_id, String user_id) {
-        this.post_id = post_id;
+    public Post(String user_id, String title, String content) {
+        this.post_id = Post.post_num + 1;
         this.user_id = user_id;
-        this.content = null;
-        this.title = null;
+        this.content = content;
+        this.title = title;
         this.create_date = LocalDateTime.now().toString();
         this.update_date = LocalDateTime.now().toString();
         this.change_count++;

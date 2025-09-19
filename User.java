@@ -43,6 +43,10 @@ public class User {
 
     public void setPost_count(int post_count) {this.post_count = post_count;}
 
+    public void increasePost_count(){
+        this.post_count ++;
+    }
+
     public User(String user_id, String password) {
         this.user_id = user_id;
         this.password = password;

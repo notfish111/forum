@@ -126,13 +126,17 @@ public class UserManager {
     public boolean login(String user_id, String password){
         User user = getUser(user_id);
         if (user != null && user.getPassword().equals(password)){
+
             return true;
         }else {
             return false;
         }
     }
 
-    //登录状态
+    //登录状态获取
+
+
+
 
     //打印信息
     public void printOneUser(String user_id){
