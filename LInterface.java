@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class LInterface {
     public void loginInterface(User user, Scanner scanner,String userChoice, PostManager postManager, UserManager userManager){
 
-        while (true) {
+         boolean running = true;
+        while (running) {
             clearConsole();
             UserSelfInfGet(user);
             System.out.println("1:创建帖子");
@@ -28,6 +29,8 @@ public class LInterface {
 
                 case "5":
 
+                case "exit":
+                    running = false;
                 default:
                     System.out.println("无效选择，请重新输入");
             }
