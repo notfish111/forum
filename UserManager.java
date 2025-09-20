@@ -14,9 +14,9 @@ public class UserManager {
         String user_id;
         System.out.println("现在开始创建账户！");
 
-        if (scanner.hasNextLine()) {
-            scanner.nextLine(); // 清空缓冲区的一行（可能是换行符）
-        }
+//        if (scanner.hasNextLine()) {
+//            scanner.nextLine(); // 清空缓冲区的一行（可能是换行符）
+//        }
 
         while (true) {
             System.out.println("请输入你的账号:");

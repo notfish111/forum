@@ -34,13 +34,14 @@ public class LInterface {
                     if (userPostHashMap.get(user.getUser_id()).contains(postManager.getPost(Integer.parseInt(choice)))){
                         clearConsole();
                         postManager.printOnePostAll(postManager.getPost(Integer.parseInt(choice)));
-                        System.out.println("==========");
+                    }else{
+                        System.out.println("此帖子不存在或不属于当前用户！");
                     }
                     System.out.println("返回请输入任意字符");
                     choice = scanner.nextLine();
 
                     //后期增加对post的操作
-
+                    continue;
                 case "3":
                     System.out.println("请输入您当前的密码:");
                     password = scanner.nextLine();
@@ -51,9 +52,11 @@ public class LInterface {
                         userManager.saveToFile();
                         System.out.println("修改成功");
                     }
+                    continue;
                 case "4":
                     running = false;
                     clearConsole();
+                    continue;
                 case "5":
                     System.out.println("请输入您当前的密码以确定注销账户:");
                     password = scanner.nextLine();

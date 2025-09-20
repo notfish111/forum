@@ -18,9 +18,9 @@ public class PostManager {
 
         System.out.println("=====现在开始创建新帖子=====");
 
-        if (scanner.hasNextLine()) {
-            scanner.nextLine(); // 清空缓冲区的一行（可能是换行符）
-        }
+//        if (scanner.hasNextLine()) {
+//            scanner.nextLine(); // 清空缓冲区的一行（可能是换行符）
+//        }
 
         Post post;
         while (true) {
@@ -33,6 +33,7 @@ public class PostManager {
             System.out.println("正文:(以“&”结束)");
             scanner.useDelimiter("&");
             content = scanner.next();
+            scanner.nextLine();
             if (content.isEmpty()) {
                 System.out.println("标题不能为空，请重新输入");
                 continue;
@@ -58,6 +59,7 @@ public class PostManager {
     //保存文件
     public void saveToFile(){
         try(PrintWriter writer = new PrintWriter(new FileWriter(DATA2_FILE))){
+            writer.println(Post.post_num);
             for (Post post : postHashMap.values()) {
                 writer.println(post.p_serialize());
             }
@@ -79,6 +81,9 @@ public class PostManager {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(DATA2_FILE))) {
             String line;
+            if((line = reader.readLine()) != null){
+                Post.post_num = Integer.parseInt(line);
+            }
             while ((line = reader.readLine()) != null) {
                 try {
                     Post post = Post.deserialize(line);

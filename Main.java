@@ -19,7 +19,7 @@ public class Main {
             System.out.println("2:注册");
             System.out.println("以下是业务列表，请输入你想选择的业务");
 
-            userChoice = scanner.next();
+            userChoice = scanner.nextLine();
             switch (userChoice){
                 case "1":
                     String input1,input2;
