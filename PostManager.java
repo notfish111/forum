@@ -15,6 +15,7 @@ public class PostManager {
     public void createPost(User user, Scanner scanner) {
         String title;
         String content;
+        String fanhui;
 
         System.out.println("=====现在开始创建新帖子=====");
 
@@ -33,6 +34,7 @@ public class PostManager {
             System.out.println("正文:(以“&”结束)");
             scanner.useDelimiter("&");
             content = scanner.next();
+            scanner.useDelimiter("\\p{javaWhitespace}+");
             scanner.nextLine();
             if (content.isEmpty()) {
                 System.out.println("标题不能为空，请重新输入");
@@ -51,7 +53,13 @@ public class PostManager {
 
         user.increasePost_count();
         saveToFile();
+        System.out.println("请按任意键返回！");
+        fanhui = scanner.nextLine();
     }
+
+    //修改帖子
+
+
     //查找帖子，自定义算法
 
 
@@ -117,7 +125,8 @@ public class PostManager {
             String choice = scanner.nextLine();
             if (choice.equals("y")){
                 postHashMap.remove(post.getPost_id(),post);
-                userPostHashMap.values().remove(post);
+                //userPostHashMap.values().remove(post);
+                userPostHashMap.get(user.getUser_id()).remove(post);
                 user.decreasePost_count();
                 postManager.saveToFile();
                 userManager.saveToFile();

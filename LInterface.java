@@ -25,22 +25,38 @@ public class LInterface {
             switch (userChoice){
                 case "1":
                     postManager.createPost(user, scanner);
+                    clearConsole();
                     continue;
                 case "2":
                     printSelfPost(user.getUser_id(),userPostHashMap,postManager);
                     System.out.println("如果要查看某一帖子，请输入PostID");
                     String choice = scanner.nextLine();
+                    Post TEMPPost;
                     //if (postManager.getPost(Integer.parseInt(choice)) == userPostHashMap.get(user.getUser_id()).get(Integer.parseInt(choice))){}
                     if (userPostHashMap.get(user.getUser_id()).contains(postManager.getPost(Integer.parseInt(choice)))){
                         clearConsole();
                         postManager.printOnePostAll(postManager.getPost(Integer.parseInt(choice)));
+                        TEMPPost = postManager.getPost(Integer.parseInt(choice));
                     }else{
                         System.out.println("此帖子不存在或不属于当前用户！");
+                        continue;
                     }
-                    System.out.println("返回请输入任意字符");
+                    System.out.println();
+                    System.out.println("1:修改该帖子");
+                    System.out.println("2:删除该帖子");
+                    System.out.println("exit:退出该帖子");
                     choice = scanner.nextLine();
 
-                    //后期增加对post的操作
+                    //优化一下逻辑
+                    switch (choice){
+                        case "exit":
+                            break;
+                        case "2":
+                            postManager.deleteOnePost(TEMPPost,scanner,userManager.getUser(TEMPPost.getUser_id()),postManager,userManager);
+                        case "1":
+                            //修改帖子
+                    }
+
                     continue;
                 case "3":
                     System.out.println("请输入您当前的密码:");
@@ -61,8 +77,13 @@ public class LInterface {
                     System.out.println("请输入您当前的密码以确定注销账户:");
                     password = scanner.nextLine();
                     if (userManager.deleteUser(user.getUser_id(),password)){
+                        Post.post_num -= user.getPost_count();
                         userManager.userHashMap.remove(user.getUser_id(),user);
                         User.user_num --;
+                        for (Post post : userPostHashMap.get(user.getUser_id())) {
+                            postManager.postHashMap.remove(post.getPost_id(),post);
+                        }
+                        userPostHashMap.remove(user.getUser_id());
                         userManager.saveToFile();
                         System.out.println("注销成功！");
                         try {
@@ -71,7 +92,8 @@ public class LInterface {
                             throw new RuntimeException(e);
                         }
                         clearConsole();
-                        break;
+                        running = false;
+                        continue;
                     }else {
                         System.out.println("注销失败！");
                         clearConsole();
