@@ -110,6 +110,27 @@ public class PostManager {
     }
 
     //删除帖子要判断帖子的user_id是否与用户id相同
+    public boolean deleteOnePost(Post post, Scanner scanner, User user, PostManager postManager, UserManager userManager){
+        if (post.getUser_id().equals(user.getUser_id())) {
+            System.out.println("请确认是否删除帖子，删除后无法还原！");
+            System.out.println("y/n");
+            String choice = scanner.nextLine();
+            if (choice.equals("y")){
+                postHashMap.remove(post.getPost_id(),post);
+                userPostHashMap.values().remove(post);
+                user.decreasePost_count();
+                postManager.saveToFile();
+                userManager.saveToFile();
+                return true;
+            }else {
+                System.out.println("删除操作撤销！");
+                return false;
+            }
+        }else {
+            System.out.println("您不是此帖子的拥有者，无权限操作！");
+            return false;
+        }
+    }
 
 
     //打印帖子
